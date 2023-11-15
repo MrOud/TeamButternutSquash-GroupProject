@@ -7,6 +7,7 @@ export default function Navigation() {
       <Link to="/signup">Sign Up</Link>
       <Link to="/signin">Sign In</Link>
       <Link to="/play">Play</Link>
+      <Link to="/profile">Profile</Link>
     </div>
   );
 }
