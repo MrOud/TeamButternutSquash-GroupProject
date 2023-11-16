@@ -20,7 +20,7 @@ export default function SignUp() {
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(user)
       });
 
