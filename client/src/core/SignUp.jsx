@@ -29,7 +29,7 @@ export default function SignUp() {
       if (!response.ok) {
         throw new Error(data.message);
       }
-      console.log(data);
+      window.location.replace("/signin");
     } catch (err) {
       console.error("Error during signup:", err);
     }
