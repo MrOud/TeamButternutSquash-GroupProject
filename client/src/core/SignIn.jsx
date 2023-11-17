@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
+import AuthManager from "../auth/auth-helper";
 import "./css/forms.css";
 
 export default function SignIn() {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   function handleChange(e) {
@@ -18,8 +19,11 @@ export default function SignIn() {
     try {
       const response = await fetch("http://localhost:3000/auth/signin", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(user)
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(user),
       });
 
       const data = await response.json();
@@ -27,14 +31,23 @@ export default function SignIn() {
       if (!response.ok) {
         throw new Error(data.message);
       }
-      window.location.replace("/play");
+
+      //Authenticate user and store token / user data
+      let auth = new AuthManager();
+      if (
+        auth.authenticate(data.token, () => {
+          sessionStorage.setItem("user", JSON.stringify(data.user));
+          window.location.replace("/play");
+        })
+      )
+        window.location.replace("/play");
     } catch (err) {
       console.error("Error during signup:", err);
     }
   }
 
   return (
-    <div >
+    <div>
       <Navigation />
       <div className="authForm">
         <form onSubmit={handleSubmit}>
