@@ -2,7 +2,7 @@ import player from '../models/player.model.js'
 import extend from 'lodash/extend.js'
 
 
-const createPlayer = async (req, res) => { 
+const create = async (req, res) => { 
 	console.log(req.body);
     const player = new Player(req.body) 
     try {
@@ -17,7 +17,7 @@ const createPlayer = async (req, res) => {
     } 
 }
 
-const listPlayer = async (req, res) => { 
+const list = async (req, res) => { 
 	try {
 	    let player = await Player.find().select('player updated / created') 
 	    res.json(player)
@@ -46,7 +46,7 @@ const playerByID = async (req, res, next, id) => {
 
 
 
-const updatePlayer = async (req, res) => { 
+const update = async (req, res) => { 
     try {
         let player = req.profile
         player = extend(player, req.body) 
@@ -60,7 +60,7 @@ const updatePlayer = async (req, res) => {
     } 
 }
 
-const removePlayer = async (req, res) => { 
+const remove = async (req, res) => { 
     try {
         let player = req.profile
         let deletedPlayer = await player.remove() 
@@ -74,4 +74,4 @@ const removePlayer = async (req, res) => {
     } 
 }
 
-export default { createPlayer, playerByID, listPlayer, removePlayer, updatePlayer }
+export default { create, playerByID, list, remove, update }
