@@ -19,7 +19,7 @@ const createTown = async (req, res) => {
 const listTown = async (req, res) => {
     try {
         let town = await Town.find().select(' Town updated/ created')
-        res.json(users)
+        res.json(town)
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ const listTown = async (req, res) => {
 const updateTown = async (req, res) => {
     try {
         let town = req.profile
-        town = extend(user, req.body)
+        town = extend(town, req.body)
         town.updated = Date.now()
         await town.save()
         res.json(town)
