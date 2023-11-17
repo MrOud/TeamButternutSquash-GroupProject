@@ -3,11 +3,13 @@ import cookieParser from "cookie-parser";
 import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
 import Template from "./../template.js";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import newsRoutes from "./routes/news.routes.js";
-import path from "path";
+import playerRoute from "./routes/player.routes.js";
+import townRoutes from "./routes/town.routes.js";
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
@@ -27,6 +29,8 @@ app.get("/", (req, res) => {
 app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use("/", newsRoutes);
+app.use("/", playerRoute);
+app.use("/", townRoutes);
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
