@@ -2,7 +2,7 @@ import town from '../models/town.model.js'
 import extend from 'lodash/extend.js'
 
 
-const createTown = async (req, res) => {
+const create = async (req, res) => {
     console.log(req.body);
     const town = new Town(req.body)
     try {
@@ -16,7 +16,7 @@ const createTown = async (req, res) => {
         })
     }
 }
-const listTown = async (req, res) => {
+const list = async (req, res) => {
     try {
         let town = await Town.find().select(' Town updated/ created')
         res.json(town)
@@ -26,8 +26,23 @@ const listTown = async (req, res) => {
         })
     }
 }
+const townByID = async (req, res, next, id) => { 
+    try {
+        let town = await Town.findById(id) 
+        if (!town)
+            return res.status('400').json({ 
+                error: 'town not found'
+        })
+        req.profile = town 
+        next()
+    } catch (err) {
+        return res.status('400').json({ 
+            error: 'Could not retrieve town'
+        }) 
+    }
+}
 
-const updateTown = async (req, res) => {
+const update = async (req, res) => {
     try {
         let town = req.profile
         town = extend(town, req.body)
@@ -41,7 +56,7 @@ const updateTown = async (req, res) => {
     }
 }
 
-const removeTown = async (req, res) => {
+const remove = async (req, res) => {
     try {
         let town = req.profile
         let deletedTown = await town.remove()
@@ -54,4 +69,4 @@ const removeTown = async (req, res) => {
         })
     }
 }
-export default { createTown, listTown, removeTown, updateTown }
+export default { create, list, townByID, remove, update }
