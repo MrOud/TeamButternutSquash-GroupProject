@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
-import "./css/signUp.css";
 import "./css/forms.css";
 
 export default function SignUp() {
@@ -36,9 +35,9 @@ export default function SignUp() {
   }
 
   return (
-    <div >
+    <div>
       <Navigation />
-      <div className="signUp">
+      <div className="authForm">
         <form onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
           <label htmlFor="name">Name</label>
