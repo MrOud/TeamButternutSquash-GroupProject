@@ -18,6 +18,7 @@ class AuthManager {
     console.log("merp!");
     sessionStorage.removeItem("jwt");
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("firstLogin");
     document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
 }
