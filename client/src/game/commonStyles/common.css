@@ -1,0 +1,7 @@
+.gameLink {
+  color: green;
+}
+
+.gameLink:hover {
+  text-decoration: underline;
+}

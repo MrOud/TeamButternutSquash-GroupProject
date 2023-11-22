@@ -37,6 +37,7 @@ export default function SignIn() {
       if (
         auth.authenticate(data.token, () => {
           sessionStorage.setItem("user", JSON.stringify(data.user));
+          sessionStorage.setItem("firstLogin", "true");
           window.location.replace("/play");
         })
       )
