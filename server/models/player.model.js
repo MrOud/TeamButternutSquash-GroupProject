@@ -65,6 +65,18 @@ const PlayerSchema = new mongoose.Schema({
       default: 1,
     },
   },
+  weapon: {
+    type: Number,
+    default: 1000,
+  },
+  armor: {
+    type: Number,
+    default: 1000,
+  },
+  gold: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.model("Player", PlayerSchema);
