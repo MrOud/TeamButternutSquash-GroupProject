@@ -1,7 +1,7 @@
 let apiURL = "http://localhost:3000";
 const list = async () => {
   try {
-    let response = await fetch(apiURL + "/api/shops/weapon", {
+    let response = await fetch(apiURL + "/api/shops/armor", {
       method: "GET",
     });
     return response.json();
@@ -10,9 +10,9 @@ const list = async () => {
   }
 };
 
-const buyWeapon = async (item) => {
+const buyArmor = async (item) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const response = await fetch(apiURL + "/api/shops/weapon", {
+  const response = await fetch(apiURL + "/api/shops/armor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,4 +28,4 @@ const buyWeapon = async (item) => {
   return data;
 };
 
-export { list, buyWeapon };
+export { list, buyArmor };

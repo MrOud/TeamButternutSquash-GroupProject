@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { list } from "./weapons-api.js";
+import { list, buyWeapon } from "./weapons-api.js";
 import "../commonStyles/common.css";
 
 export default function WeaponSmith({ setCurrentPage }) {
   const [weaponList, setWeaponList] = useState([]);
+  const [shopMessage, setShopMessage] = useState("Welcome to my shop");
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -17,28 +18,23 @@ export default function WeaponSmith({ setCurrentPage }) {
     });
   }, []);
 
-  async function buyWeapon(item) {
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    const response = await fetch("http://localhost:3000/api/shops/weapon", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + sessionStorage.getItem("jwt").replaceAll('"', ""),
-      },
-      body: JSON.stringify({
-        purchase: item,
-        user: user._id,
-      }),
-    });
-    const data = await response;
-    console.log(data);
+  async function makePurchase(wep) {
+    const result = await buyWeapon(wep);
+    if (result.message == "PurchaseDown") {
+      setShopMessage("That would leave you worse off, friend.");
+    } else if (result.message == "PurchaseDenied") {
+      setShopMessage(
+        "I'm not running a charity! Come back when you have the gold."
+      );
+    } else {
+      setShopMessage("Thank you for the purchase!");
+    }
   }
 
   return (
     <>
       <h2>The Weapon Smith</h2>
-      <p>Here you can purchase weapons</p>
+      <p>{shopMessage}</p>
       <table>
         <thead>
           <tr>
@@ -58,7 +54,7 @@ export default function WeaponSmith({ setCurrentPage }) {
                 <td key={"d" + i}>
                   <p
                     onClick={() => {
-                      buyWeapon(weaponList[i]._id);
+                      makePurchase(weaponList[i]._id);
                     }}
                   >
                     Buy!
