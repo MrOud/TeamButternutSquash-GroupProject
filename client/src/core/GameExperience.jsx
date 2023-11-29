@@ -19,6 +19,8 @@ export default function GameExperience() {
 
   useEffect(() => {
     if (!auth.isAuthenticated()) navigate("/");
+    if (JSON.parse(sessionStorage.getItem("user")).player === null)
+      navigate("/create");
   }, []);
 
   return (

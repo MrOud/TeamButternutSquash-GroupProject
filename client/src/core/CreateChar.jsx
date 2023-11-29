@@ -10,10 +10,7 @@ export default function CreateChar() {
 
   useEffect(() => {
     if (!auth.isAuthenticated()) navigate("/");
-  }, []);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("user").player !== null) navigate("/play");
+    if (JSON.parse(sessionStorage.getItem("user")).player !== null) navigate("/play");
   }, []);
 
   const [player, setPlayer] = useState({
