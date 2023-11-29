@@ -31,6 +31,11 @@ form input:focus {
     border-color: #333;
 }
 
+form input[type="number"] {
+    width: 30px;
+
+}
+
 form button {
     padding: 0.5rem;
     border: none;
@@ -45,10 +50,33 @@ form button:hover {
     background-color: #555;
 }
 
+form button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
 .authForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 3rem;
+}
+
+#skillPoints {
+    text-align: end;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

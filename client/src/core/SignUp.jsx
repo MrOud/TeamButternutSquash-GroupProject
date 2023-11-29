@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
+import { useNavigate } from "react-router-dom";
 import "./css/forms.css";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -28,7 +31,7 @@ export default function SignUp() {
       if (!response.ok) {
         throw new Error(data.message);
       }
-      window.location.replace("/signin");
+      navigate("/signin");
     } catch (err) {
       console.error("Error during signup:", err);
     }
@@ -42,6 +45,7 @@ export default function SignUp() {
           <h1>Sign Up</h1>
           <label htmlFor="name">Name</label>
           <input
+            id="name"
             type="text"
             name="name"
             value={user.name}
@@ -51,6 +55,7 @@ export default function SignUp() {
           />
           <label htmlFor="email">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={user.email}
@@ -60,6 +65,7 @@ export default function SignUp() {
           />
           <label htmlFor="password">Password</label>
           <input
+            id="password"
             type="password"
             name="password"
             value={user.password}

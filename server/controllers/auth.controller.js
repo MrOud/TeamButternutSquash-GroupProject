@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Player from "../models/player.model.js";
 import jwt from "jsonwebtoken";
 import { expressjwt } from "express-jwt";
 import config from "./../../config/config.js";
@@ -7,6 +8,8 @@ import mongoose from "mongoose";
 const signin = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
+    let player = await Player.findOne({ user_id: user._id });
+
     if (!user) {
       return res.status(401).json({ error: "User not found" });
     }
@@ -21,6 +24,7 @@ const signin = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        player: player ? player : null,
       },
     });
   } catch (err) {
