@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 const buyWeapons = async (req, res) => {
-  const user_id = req.body.user;
+  const ObjectId = mongoose.Types.ObjectId;
+  const user_id = new ObjectId(req.body.user);
   const wep_id = req.body.purchase;
 
   //Get player data
@@ -19,7 +20,7 @@ const buyWeapons = async (req, res) => {
     .toArray(function (err, results) {
       return JSON.parse(results);
     });
-
+  console.log(player, weapon);
   //Is the economically viable?
   if (player[0].gold >= weapon[0].price) {
     //Affordable branch
@@ -63,7 +64,8 @@ const listWeapons = async (req, res) => {
 };
 
 const buyArmor = async (req, res) => {
-  const user_id = req.body.user;
+  const ObjectId = mongoose.Types.ObjectId;
+  const user_id = new ObjectId(req.body.user);
   const arm_id = req.body.purchase;
 
   //Get player data
