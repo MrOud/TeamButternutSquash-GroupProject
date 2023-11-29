@@ -1,5 +1,4 @@
 import News from "../models/news.model.js";
-import extend from "lodash/extend.js";
 
 const create = async (req, res) => {
   console.log(req.body);

@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import { expressjwt } from "express-jwt";
 import config from "./../../config/config.js";
+import mongoose from "mongoose";
 
 const signin = async (req, res) => {
   try {
@@ -50,4 +51,27 @@ const hasAuthorization = (req, res, next) => {
   next();
 };
 
-export default { signin, signout, requireSignin, hasAuthorization };
+const confirmAuthorization = (req, res, next) => {
+  //console.log(req.headers.authorization.split(" ")[1]);
+
+  const verifiedID = jwt.verify(
+    req.headers.authorization.split(" ")[1],
+    config.jwtSecret
+  )._id;
+  const authorized = req.body.user == verifiedID;
+  if (!authorized) {
+    return res.status(403).json({
+      error: "User not authorized",
+    });
+  }
+
+  next();
+};
+
+export default {
+  signin,
+  signout,
+  requireSignin,
+  hasAuthorization,
+  confirmAuthorization,
+};
