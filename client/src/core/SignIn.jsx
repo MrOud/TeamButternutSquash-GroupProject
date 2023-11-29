@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
 import AuthManager from "../auth/auth-helper";
+import { useNavigate } from "react-router-dom";
 import "./css/forms.css";
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -34,16 +37,17 @@ export default function SignIn() {
 
       //Authenticate user and store token / user data
       let auth = new AuthManager();
-      if (
-        auth.authenticate(data.token, () => {
+      auth.authenticate(data.token, () => {
           sessionStorage.setItem("user", JSON.stringify(data.user));
           sessionStorage.setItem("firstLogin", "true");
-          window.location.replace("/play");
-        })
-      )
-        window.location.replace("/play");
+          if (data.user.player === null) {
+            navigate("/create");
+          } else {
+            navigate("/play");
+          }
+        });
     } catch (err) {
-      console.error("Error during signup:", err);
+      console.error("Error during signin:", err);
     }
   }
 
@@ -55,6 +59,7 @@ export default function SignIn() {
           <h1>Sign In</h1>
           <label htmlFor="email">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={user.email}
@@ -64,6 +69,7 @@ export default function SignIn() {
           />
           <label htmlFor="password">Password</label>
           <input
+            id="password"
             type="password"
             name="password"
             value={user.password}

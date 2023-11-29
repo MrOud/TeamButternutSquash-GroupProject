@@ -5,11 +5,13 @@ const PlayerSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: "Name is required",
+    unique: true,
   },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: "Character must be linked to a player",
+    unique: true,
   },
   created: {
     type: Date,
