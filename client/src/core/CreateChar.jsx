@@ -96,7 +96,8 @@ export default function CreateChar() {
     e.preventDefault();
 
     try {
-      player.user_id = JSON.parse(sessionStorage.getItem("user"))._id;
+      let user = JSON.parse(sessionStorage.getItem("user"));
+      player.user_id = user._id;
       const response = await fetch("http://localhost:3000/api/player", {
         method: "POST",
         headers: {"Content-Type": "application/json", "Accept": "application/json"},
@@ -108,6 +109,9 @@ export default function CreateChar() {
       if (!response.ok) {
         throw new Error(data.message);
       }
+      user.player = player;
+      sessionStorage.setItem("user", JSON.stringify(user));
+
       navigate("/play");
     } catch (err) {
       console.error("Error during character creation:", err);
