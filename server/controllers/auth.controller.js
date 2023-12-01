@@ -56,8 +56,6 @@ const hasAuthorization = (req, res, next) => {
 };
 
 const confirmAuthorization = (req, res, next) => {
-  //console.log(req.headers.authorization.split(" ")[1]);
-
   const verifiedID = jwt.verify(
     req.headers.authorization.split(" ")[1],
     config.jwtSecret
