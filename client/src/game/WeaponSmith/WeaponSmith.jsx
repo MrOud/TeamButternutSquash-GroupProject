@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { list, buyWeapon } from "./weapons-api.js";
-import "../commonStyles/common.css";
+import "../common/common.css";
 
 export default function WeaponSmith({ setCurrentPage }) {
   const [weaponList, setWeaponList] = useState([]);

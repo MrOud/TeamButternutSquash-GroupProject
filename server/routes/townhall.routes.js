@@ -7,6 +7,6 @@ const router = express.Router();
 router
   .route("/api/townhall")
   .get(townhallCtrl.getData)
-  .post(townhallCtrl.makeDonation);
+  .post(authCtrl.confirmAuthorization, townhallCtrl.makeDonation);
 
 export default router;

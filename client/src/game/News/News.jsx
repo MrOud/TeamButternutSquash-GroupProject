@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { list } from "./news-api.js";
 import "./news.css";
-import "../commonStyles/common.css";
+import "../common/common.css";
 
 export default function News({ setCurrentPage }) {
   const [news, setNews] = useState([]);
