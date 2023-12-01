@@ -12,6 +12,7 @@ import playerRoute from "./routes/player.routes.js";
 import townRoutes from "./routes/town.routes.js";
 import shopRoutes from "./routes/shops.routes.js";
 import bankRoutes from "./routes/bank.routes.js";
+import townhallRoutes from "./routes/townhall.routes.js";
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
@@ -35,6 +36,7 @@ app.use("/", playerRoute);
 app.use("/", townRoutes);
 app.use("/", shopRoutes);
 app.use("/", bankRoutes);
+app.use("/", townhallRoutes);
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
