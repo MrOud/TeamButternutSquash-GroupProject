@@ -2,6 +2,45 @@ import mongoose from "mongoose";
 import Player from "../models/player.model.js";
 import extend from "lodash/extend.js";
 
+function computeDerivedStats() {
+  let derivedStats = {}; //Empty object to hold all our fields
+
+  derivedStats.hitpoints = Math.ceil(
+    player.stats.level * 20 +
+      player.stats.level * 1.2 * player.stats.strength +
+      player.stats.level * 0.6 * player.stats.dexterity
+  );
+
+  derivedStats.stamina = Math.ceil(
+    player.stats.level * 20 +
+      player.stats.level * 1.2 * player.stats.dexterity +
+      player.stats.level * 0.3 * player.stats.strength +
+      player.stats.level * 0.3 * player.stats.intelligence
+  );
+
+  derivedStats.skillPoints = Math.ceil(
+    0.8 * player.stats.strength +
+      1.2 * player.stats.intelligence +
+      0.8 * player.stats.dexterity
+  );
+
+  derivedStats.baseDmg = Math.ceil(
+    5 +
+      player.stats.strength +
+      0.25 * player.stats.intelligence +
+      0.25 * player.stats.dexterity
+  );
+
+  derivedStats.baseArmor = Math.ceil(
+    5 +
+      player.stats.dexterity +
+      0.25 * player.stats.intelligence +
+      0.25 * player.stats.strength
+  );
+
+  return derivedStats;
+}
+
 const create = async (req, res) => {
   console.log(req.body);
   const player = new Player(req.body);
@@ -52,13 +91,45 @@ const create = async (req, res) => {
   }
 
   try {
+    //Save player
     await player.save();
-    console.log("Player added!");
+
+    //Compute derived stats
+    let derivedStats = computeDerivedStats();
+
+    //add derived stats to new character
+    await mongoose.connection.db.collection("players").updateOne(
+      {
+        user_id: player.user_id,
+      },
+      {
+        $set: {
+          "stats.hitpoints": derivedStats.hitpoints,
+          "stats.curHitpoints": derivedStats.hitpoints,
+          "stats.stamina": derivedStats.stamina,
+          "stats.curStamina": derivedStats.stamina,
+          "stats.skillPoints": derivedStats.skillPoints,
+          "stats.curSkillPoints": derivedStats.skillPoints,
+          "stats.baseDamage": derivedStats.baseDmg,
+          "stats.baseArmor": derivedStats.baseArmor,
+        },
+      }
+    );
+
+    //Get ref to newly made player
+    const mongoPlayerRef = await mongoose.connection.db
+      .collection("players")
+      .findOne({
+        user_id: player.user_id,
+      });
+
+    //Generate news item
     await mongoose.connection.db.collection("news").insertOne({
-      playerRef: null,
+      playerRef: mongoPlayerRef._id,
       message: "[" + player.name + "]" + " has entered the realm!",
       eventDate: new Date().toISOString(),
     });
+
     return res.status(200).json({
       message: "Player added!",
     });
