@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import "../commonStyles/common.css";
+import "../common/common.css";
 import { getBalance, makeDeposit, makeWithdrawl } from "./bank-api";
 
 export default function Bank({ setCurrentPage }) {

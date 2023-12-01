@@ -1,4 +1,4 @@
-import "../commonStyles/common.css";
+import "../common/common.css";
 
 export default function TrainingField({ setCurrentPage }) {
   return (

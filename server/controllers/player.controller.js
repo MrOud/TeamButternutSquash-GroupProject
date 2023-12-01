@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Player from "../models/player.model.js";
 import extend from "lodash/extend.js";
 
@@ -19,7 +20,11 @@ const create = async (req, res) => {
     });
   }
 
-  const stats = [player.stats.strength, player.stats.dexterity, player.stats.intelligence];
+  const stats = [
+    player.stats.strength,
+    player.stats.dexterity,
+    player.stats.intelligence,
+  ];
 
   // validate incoming stats
   if (stats.reduce((a, b) => a + b, 0) !== 10) {
@@ -27,12 +32,20 @@ const create = async (req, res) => {
       error: "Total stats must equal 10",
     });
   }
-  if (player.stats.strength < 0 || player.stats.dexterity < 0 || player.stats.intelligence < 0) {
+  if (
+    player.stats.strength < 0 ||
+    player.stats.dexterity < 0 ||
+    player.stats.intelligence < 0
+  ) {
     return res.status(400).json({
       error: "Stats must be greater than 0",
     });
   }
-  if (player.stats.strength > 5 || player.stats.dexterity > 5 || player.stats.intelligence > 5) {
+  if (
+    player.stats.strength > 5 ||
+    player.stats.dexterity > 5 ||
+    player.stats.intelligence > 5
+  ) {
     return res.status(400).json({
       error: "Stats must be less than 5",
     });
@@ -40,12 +53,17 @@ const create = async (req, res) => {
 
   try {
     await player.save();
-    console.log("Player added!")
+    console.log("Player added!");
+    await mongoose.connection.db.collection("news").insertOne({
+      playerRef: null,
+      message: "[" + player.name + "]" + " has entered the realm!",
+      eventDate: new Date().toISOString(),
+    });
     return res.status(200).json({
       message: "Player added!",
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return res.status(400).json({
       error: "Could not create player",
     });
@@ -93,7 +111,7 @@ const playerByUserID = async (req, res) => {
       error: "Could not retrieve player",
     });
   }
-}
+};
 
 const update = async (req, res) => {
   try {
@@ -133,4 +151,29 @@ const read = async (req, res) => {
   }
 };
 
-export default { create, playerByID, list, remove, update, read, playerByUserID };
+const getGold = async (req, res) => {
+  const ObjectId = mongoose.Types.ObjectId;
+  const user_id = new ObjectId(req.body.user);
+  try {
+    const player = await mongoose.connection.db
+      .collection("players")
+      .find({ user_id: user_id })
+      .toArray(function (err, results) {
+        return JSON.parse(results);
+      });
+    return res.json({ gold: player[0].gold });
+  } catch (err) {
+    return res.json({ message: "Error" });
+  }
+};
+
+export default {
+  create,
+  playerByID,
+  list,
+  remove,
+  update,
+  read,
+  playerByUserID,
+  getGold,
+};

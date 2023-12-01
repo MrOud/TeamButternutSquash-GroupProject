@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { list, buyArmor } from "./armorer-api.js";
-import "../commonStyles/common.css";
+import "../common/common.css";
 
 export default function Armorer({ setCurrentPage }) {
   const [armorList, setArmorList] = useState([]);
