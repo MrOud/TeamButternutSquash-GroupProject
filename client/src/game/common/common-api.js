@@ -1,6 +1,6 @@
 const apiURL = "http://localhost:3000";
 
-const getPlayerGold = async (building, amount) => {
+const getPlayerGold = async () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const response = await fetch(apiURL + "/api/player/getGold", {
     method: "POST",

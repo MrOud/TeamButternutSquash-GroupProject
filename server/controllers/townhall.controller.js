@@ -90,7 +90,7 @@ const makeDonation = async (req, res) => {
   const amount = Number(req.body.amount);
 
   try {
-    if (amount <= player[0].gold) {
+    if (amount <= player[0].gold && amount <= 100000) {
       await mongoose.connection.db
         .collection("towns")
         .updateOne({ code: buildingCode }, { $inc: { donations: amount } });

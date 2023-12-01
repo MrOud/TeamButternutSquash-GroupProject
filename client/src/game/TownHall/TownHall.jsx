@@ -69,6 +69,12 @@ export default function TownHall({ setCurrentPage }) {
       }
     }
 
+    if (donationAmount.current.value > 100000) {
+      canProceed = false;
+      setShopMessage(
+        'The record keeper seems overwhelmed, "Oh my, that is... quite generous.... however I can only accept donations up to 100,000 gold at a time"'
+      );
+    }
     return canProceed;
   }
 
