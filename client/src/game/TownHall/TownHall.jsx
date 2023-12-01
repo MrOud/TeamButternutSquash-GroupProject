@@ -78,8 +78,7 @@ export default function TownHall({ setCurrentPage }) {
     return canProceed;
   }
 
-  useEffect(() => {}, []);
-  getBuildingList().then((data) => {
+  function updateBuildings(data) {
     setWepsmithLevel(data.weaponLevel);
     setWepsmithDonation(data.weaponDonation);
     setWepsmithNextLevel(data.weaponNextLevel);
@@ -91,10 +90,16 @@ export default function TownHall({ setCurrentPage }) {
     setTrainingLevel(data.trainingLevel);
     setTrainingDonation(data.trainingDonation);
     setTrainingNextLevel(data.trainingNextLevel);
-  });
-  getPlayerGold().then((data) => {
-    setGoldInHand(data.gold);
-  });
+  }
+
+  useEffect(() => {
+    getBuildingList().then((data) => {
+      updateBuildings(data);
+    });
+    getPlayerGold().then((data) => {
+      setGoldInHand(data.gold);
+    });
+  }, []);
 
   return (
     <>
@@ -132,6 +137,9 @@ export default function TownHall({ setCurrentPage }) {
               buildingSelect.current.value,
               donationAmount.current.value
             ).then((data) => {
+              getBuildingList().then((data) => {
+                updateBuildings(data);
+              });
               setGoldInHand(data.gold);
               setShopMessage(
                 'The record keeper smiles at you, "Thank you for your donation"'

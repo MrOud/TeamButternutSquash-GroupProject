@@ -118,15 +118,11 @@ const makeDonation = async (req, res) => {
 
       return res.json({
         message: "success",
-        buildingLvl: buildingInfo[0].level,
-        buildingDonation: buildingInfo[0].donations,
         gold: player[0].gold - amount,
       });
     } else {
       return res.json({
         message: "failure",
-        buildingLevel: buildingInfo[0].level,
-        buildingDonation: buildingInfo[0].donations,
         gold: player[0].gold,
       });
     }
