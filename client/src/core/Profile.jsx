@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "./UIpartials/Navigation";
 import { getProfile } from "./profile-api";
+import AuthManager from "../auth/auth-helper";
 
 export default function Profile() {
+  //Check for authentication
+  const auth = new AuthManager();
+  const navigate = useNavigate();
+
   const [playerName, setPlayerName] = useState("");
 
   const [playerLevel, setPlayerLevel] = useState(0);
@@ -37,6 +43,11 @@ export default function Profile() {
   const [luck, setLuck] = useState(0);
 
   useEffect(() => {
+    if (!auth.isAuthenticated()) {
+      navigate("/");
+      return;
+    }
+
     getProfile().then((data) => {
       //Name
       setPlayerName(data.name);
@@ -44,7 +55,9 @@ export default function Profile() {
       setPlayerLevel(data.stats.level);
       setPlayerExp(data.stats.experience);
       setPlayerNextLevel(
-        Math.ceil(5000 * (playerLevel * Math.sqrt(Math.pow(playerLevel, 3))))
+        Math.ceil(
+          5000 * (data.stats.level * Math.sqrt(Math.pow(data.stats.level, 3)))
+        )
       );
       //Wealth
       setGoldInHand(data.gold);

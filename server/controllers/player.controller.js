@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Player from "../models/player.model.js";
 import extend from "lodash/extend.js";
 
-function computeDerivedStats() {
+function computeDerivedStats(player) {
   let derivedStats = {}; //Empty object to hold all our fields
 
   derivedStats.hitpoints = Math.ceil(
@@ -95,7 +95,7 @@ const create = async (req, res) => {
     await player.save();
 
     //Compute derived stats
-    let derivedStats = computeDerivedStats();
+    let derivedStats = computeDerivedStats(player);
 
     //add derived stats to new character
     await mongoose.connection.db.collection("players").updateOne(
@@ -234,11 +234,8 @@ const getGold = async (req, res) => {
   try {
     const player = await mongoose.connection.db
       .collection("players")
-      .find({ user_id: user_id })
-      .toArray(function (err, results) {
-        return JSON.parse(results);
-      });
-    return res.json({ gold: player[0].gold });
+      .findOne({ user_id: user_id });
+    return res.json({ gold: player.gold });
   } catch (err) {
     return res.json({ message: "Error" });
   }

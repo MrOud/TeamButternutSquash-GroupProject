@@ -64,49 +64,37 @@ const makeDonation = async (req, res) => {
   const user_id = new ObjectId(req.body.user);
   const player = await mongoose.connection.db
     .collection("players")
-    .find({ user_id: user_id })
-    .toArray(function (err, results) {
-      return JSON.parse(results);
-    });
+    .findOne({ user_id: user_id });
 
   //Get building info
   const buildingCode = req.body.building;
   const buildingInfo = await mongoose.connection.db
     .collection("towns")
-    .find({ code: buildingCode })
-    .toArray(function (err, results) {
-      return JSON.parse(results);
-    });
+    .findOne({ code: buildingCode });
 
   //Get build level Thresholds
   const buildingLevelThreshold = await mongoose.connection.db
     .collection("buildingLevels")
-    .find({ level: buildingInfo[0].level + 1 })
-    .toArray(function (err, results) {
-      return JSON.parse(results);
-    });
+    .findOne({ level: buildingInfo.level + 1 });
 
   //Get amount to donate
   const amount = Number(req.body.amount);
 
   try {
-    if (amount <= player[0].gold && amount <= 100000) {
+    if (amount <= player.gold && amount <= 100000) {
       await mongoose.connection.db
         .collection("towns")
         .updateOne({ code: buildingCode }, { $inc: { donations: amount } });
-      if (
-        buildingInfo[0].donations + amount >=
-        buildingLevelThreshold[0].price
-      ) {
+      if (buildingInfo.donations + amount >= buildingLevelThreshold.price) {
         await mongoose.connection.db
           .collection("towns")
           .updateOne({ code: buildingCode }, { $inc: { level: 1 } });
         await mongoose.connection.db.collection("news").insertOne({
           playerRef: null,
           message:
-            buildingInfo[0].name +
+            buildingInfo.name +
             " has been upgraded to level " +
-            (buildingInfo[0].level + 1),
+            (buildingInfo.level + 1),
           eventDate: new Date().toISOString(),
         });
       }
@@ -114,16 +102,16 @@ const makeDonation = async (req, res) => {
       //Update players gold
       await mongoose.connection.db
         .collection("players")
-        .updateOne({ _id: player[0]._id }, { $inc: { gold: -amount } });
+        .updateOne({ _id: player._id }, { $inc: { gold: -amount } });
 
       return res.json({
         message: "success",
-        gold: player[0].gold - amount,
+        gold: player.gold - amount,
       });
     } else {
       return res.json({
         message: "failure",
-        gold: player[0].gold,
+        gold: player.gold,
       });
     }
   } catch (err) {
