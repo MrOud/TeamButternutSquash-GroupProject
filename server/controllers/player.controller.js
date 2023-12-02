@@ -123,6 +123,12 @@ const create = async (req, res) => {
         user_id: player.user_id,
       });
 
+    //Create bank account
+    await mongoose.connection.db.collection("bankAccounts").insertOne({
+      player_id: mongoPlayerRef._id,
+      balance: 0,
+    });
+
     //Generate news item
     await mongoose.connection.db.collection("news").insertOne({
       playerRef: mongoPlayerRef._id,
@@ -238,6 +244,45 @@ const getGold = async (req, res) => {
   }
 };
 
+const getProfileStats = async (req, res) => {
+  const ObjectId = mongoose.Types.ObjectId;
+  const user_id = new ObjectId(req.body.user);
+  try {
+    const player = await mongoose.connection.db
+      .collection("players")
+      .findOne({ user_id: user_id });
+
+    const account = await mongoose.connection.db
+      .collection("bankAccounts")
+      .findOne({ player_id: player._id });
+
+    const curWep = await mongoose.connection.db
+      .collection("weapons")
+      .findOne({ _id: player.weapon });
+
+    const curArm = await mongoose.connection.db
+      .collection("armor")
+      .findOne({ _id: player.armor });
+
+    let resObject = {};
+    resObject.stats = player.stats;
+    resObject.name = player.name;
+    resObject.gold = player.gold;
+    resObject.accountBalance = account.balance;
+
+    resObject.weapon = curWep.name;
+    resObject.dmgBonus = curWep.dmgMod;
+
+    resObject.armor = curArm.name;
+    resObject.defBonus = curArm.dmgMod;
+
+    return res.json(resObject);
+  } catch (err) {
+    console.log(err);
+    return res.json({ message: "Error" });
+  }
+};
+
 export default {
   create,
   playerByID,
@@ -247,4 +292,5 @@ export default {
   read,
   playerByUserID,
   getGold,
+  getProfileStats,
 };

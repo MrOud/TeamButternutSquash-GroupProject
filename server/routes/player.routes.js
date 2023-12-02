@@ -16,6 +16,10 @@ router
   .route("/api/player/getGold")
   .post(authCtrl.confirmAuthorization, playerCtrl.getGold);
 
+router
+  .route("/api/player/getProfile")
+  .post(authCtrl.confirmAuthorization, playerCtrl.getProfileStats);
+
 router.param("playerId", playerCtrl.playerByID);
 
 export default router;
