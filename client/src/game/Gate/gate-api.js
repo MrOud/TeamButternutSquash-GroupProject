@@ -1,26 +1,9 @@
 const apiURL = "http://localhost:3000";
 
-const getPlayerGold = async () => {
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  const response = await fetch(apiURL + "/api/player/getGold", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer " + sessionStorage.getItem("jwt").replaceAll('"', ""),
-    },
-    body: JSON.stringify({
-      user: user._id,
-    }),
-  });
-  const data = await response.json();
-  return data;
-};
-
-const getProfile = async () => {
+const startJourney = async () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   try {
-    let response = await fetch(apiURL + "/api/player/getProfile", {
+    let response = await fetch(apiURL + "/api/gate/start", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,10 +20,10 @@ const getProfile = async () => {
   }
 };
 
-const checkForJourney = async () => {
+const getNextPhase = async () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   try {
-    let response = await fetch(apiURL + "/api/gate/journey", {
+    let response = await fetch(apiURL + "/api/gate/nextPhase", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,4 +40,24 @@ const checkForJourney = async () => {
   }
 };
 
-export { getPlayerGold, getProfile, checkForJourney };
+const startFight = async () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  try {
+    let response = await fetch(apiURL + "/api/gate/startFight", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + sessionStorage.getItem("jwt").replaceAll('"', ""),
+      },
+      body: JSON.stringify({
+        user: user._id,
+      }),
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { startJourney, getNextPhase, startFight };

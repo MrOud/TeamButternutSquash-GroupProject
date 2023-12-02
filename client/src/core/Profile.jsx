@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "./UIpartials/Navigation";
-import { getProfile } from "./profile-api";
+import { getProfile } from "../game/common/common-api.js";
 import AuthManager from "../auth/auth-helper";
 
 export default function Profile() {

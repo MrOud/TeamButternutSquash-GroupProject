@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { list } from "./news-api.js";
+import { checkForJourney } from "../common/common-api.js";
 import "./news.css";
 import "../common/common.css";
 
@@ -14,6 +15,12 @@ export default function News({ setCurrentPage }) {
     if (firstLogin == "false") setCurrentPage("Town"); //If not first login, go to town without rendering news
     if (firstLogin == "true") sessionStorage.setItem("firstLogin", "false");
 
+    checkForJourney().then((data) => {
+      if (data.result) {
+        pageSetter("Gate");
+        return;
+      }
+    });
     //Will only render on user's first login
     const abortController = new AbortController();
     const signal = abortController.signal;
