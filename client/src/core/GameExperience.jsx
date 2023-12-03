@@ -28,7 +28,6 @@ export default function GameExperience() {
       <Navigation />
       {auth.isAuthenticated() && (
         <>
-          {console.log("Current page: " + currentPage)}
           {currentPage === "News" && <News setCurrentPage={setCurrentPage} />}
           {currentPage === "Town" && (
             <TownSquare setCurrentPage={setCurrentPage} />

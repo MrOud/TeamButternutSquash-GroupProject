@@ -22,7 +22,7 @@ const list = async (req, res) => {
     res.json(news);
   } catch (err) {
     return res.status(400).json({
-      error: errorHandler.getErrorMessage(err),
+      error: "error",
     });
   }
 };
