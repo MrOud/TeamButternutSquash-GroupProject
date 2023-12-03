@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { checkForJourney, getProfile } from "../common/common-api";
-import { attack } from "./gate-api";
+import { attack, abandonFight } from "./gate-api";
 
 export default function Fight({ setCurrentPage }) {
   const [monLevel, setMonLevel] = useState(0);
@@ -109,6 +109,16 @@ export default function Fight({ setCurrentPage }) {
             }
           >
             Attack!
+          </button>
+
+          <button
+            onClick={() => {
+              abandonFight().then(() => {
+                setCurrentPage("News");
+              });
+            }}
+          >
+            Flee to Town
           </button>
         </>
       )}
