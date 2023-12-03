@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../common/common-api";
 import { startJourney } from "./gate-api.js";
 
-export default function InTown({ setBattlePhase, setCurrentPage }) {
+export default function InTown({ setCurrentPage }) {
   const [hp, setHp] = useState(0);
   const [curHp, setCurHp] = useState(0);
 
@@ -76,8 +76,7 @@ export default function InTown({ setBattlePhase, setCurrentPage }) {
       </div>
       <h3
         onClick={() => {
-          startJourney().then((data) => {
-            console.log(data);
+          startJourney().then(() => {
             setCurrentPage("News");
           });
         }}

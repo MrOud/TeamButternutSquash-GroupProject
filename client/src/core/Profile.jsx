@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "./UIpartials/Navigation";
 import { getProfile } from "../game/common/common-api.js";
+import "../game/common/common.css";
 import AuthManager from "../auth/auth-helper";
 
 export default function Profile() {
@@ -95,7 +96,7 @@ export default function Profile() {
       <Navigation />
       <p>Your profile</p>
       <h2>{playerName}</h2>
-      <div>
+      <div className="merp">
         <p>
           Level: {playerLevel} - Experience: {playerExp} of {playerNextLevel}
         </p>

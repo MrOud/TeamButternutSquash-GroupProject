@@ -20,4 +20,8 @@ router
   .route("/api/gate/startFight")
   .post(authCtrl.confirmAuthorization, gateCtrl.startFight);
 
+router
+  .route("/api/gate/attack")
+  .post(authCtrl.confirmAuthorization, gateCtrl.attack);
+
 export default router;

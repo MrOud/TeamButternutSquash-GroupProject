@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../common/common.css";
 import InTown from "./InTown";
 import Journey from "./Journey";
+import Fight from "./Fight.jsx";
 import { checkForJourney } from "../common/common-api.js";
 
 export default function Gate({ setCurrentPage }) {
@@ -9,23 +10,21 @@ export default function Gate({ setCurrentPage }) {
 
   useEffect(() => {}, []);
   checkForJourney().then((data) => {
-    console.log(data);
     if (!data.result) {
       setBattlePhase("InTown");
     } else {
-      setBattlePhase("Journey");
+      if (data.journey.round == 4) {
+        setBattlePhase("Fight");
+      } else {
+        setBattlePhase("Journey");
+      }
     }
   });
   return (
     <>
-      {console.log(battlePhase)}
-      {battlePhase == "InTown" && (
-        <InTown
-          setBattlePhase={setBattlePhase}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
-      {battlePhase == "Journey" && <Journey setBattlePhase={setBattlePhase} />}
+      {battlePhase == "InTown" && <InTown setCurrentPage={setCurrentPage} />}
+      {battlePhase == "Journey" && <Journey setCurrentPage={setCurrentPage} />}
+      {battlePhase == "Fight" && <Fight setCurrentPage={setCurrentPage} />}
     </>
   );
 }
