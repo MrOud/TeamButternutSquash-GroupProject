@@ -39,6 +39,7 @@ export default function Journey({ setCurrentPage }) {
               setCurRound(journey.round);
               setCurHard(journey.hard);
               setCurReward(journey.reward);
+              setCurStam(data.curStam);
             });
           }}
         >
