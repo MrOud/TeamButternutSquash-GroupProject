@@ -27,10 +27,6 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 
-app.get("/", (req, res) => {
-  res.status(200).send(Template());
-});
-
 app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use("/", newsRoutes);
