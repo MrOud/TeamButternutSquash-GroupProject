@@ -3,7 +3,7 @@ import Navigation from "./UIpartials/Navigation";
 import "./css/forms.css";
 import AuthManager from "../auth/auth-helper";
 import { useNavigate } from "react-router-dom";
-let apiURL = "http://localhost:3000";
+let apiURL = "";
 
 export default function CreateChar() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
 import { useNavigate } from "react-router-dom";
 import "./css/forms.css";
-let apiURL = "http://localhost:3000";
+let apiURL = "";
 
 export default function SignUp() {
   const navigate = useNavigate();
