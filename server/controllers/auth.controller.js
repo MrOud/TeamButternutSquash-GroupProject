@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 
 const signin = async (req, res) => {
   try {
+    console.log("signin");
     let user = await User.findOne({ email: req.body.email });
     let player = await Player.findOne({ user_id: user._id });
 
