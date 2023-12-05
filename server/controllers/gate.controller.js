@@ -234,14 +234,6 @@ const attack = async (req, res) => {
   const monHpLeft = monster.monsterCurHp - playerDeals;
   const playerHpLeft = player.stats.curHitpoints - monsterDeals;
 
-  console.log("player def: " + playerDef + " playerDmg: " + playerDmg);
-  console.log(
-    "player cHP: " +
-      player.stats.curHitpoints +
-      " monsterDeals: " +
-      monsterDeals
-  );
-  console.log("monster: " + monHpLeft + " player: " + playerHpLeft);
   if (monHpLeft <= 0) {
     resObject.status = "victory";
     resObject.message = `You stand victorious, earning ${monster.gold} gold and ${monster.exp} experience`;
