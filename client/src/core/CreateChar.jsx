@@ -3,6 +3,7 @@ import Navigation from "./UIpartials/Navigation";
 import "./css/forms.css";
 import AuthManager from "../auth/auth-helper";
 import { useNavigate } from "react-router-dom";
+let apiURL = "" // http://localhost:3000";
 
 export default function CreateChar() {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ export default function CreateChar() {
     try {
       let user = JSON.parse(sessionStorage.getItem("user"));
       player.user_id = user._id;
-      const response = await fetch("http://localhost:3000/api/player", {
+      const response = await fetch(apiURL + "/api/player", {
         method: "POST",
         headers: {"Content-Type": "application/json", "Accept": "application/json"},
         body: JSON.stringify(player)

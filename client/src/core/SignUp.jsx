@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navigation from "./UIpartials/Navigation";
 import { useNavigate } from "react-router-dom";
 import "./css/forms.css";
+let apiURL = "" // http://localhost:3000";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/users", {
+      const response = await fetch(apiURL + "/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(user)

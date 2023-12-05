@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:3000";
+const apiURL = "" // http://localhost:3000";
 
 const startJourney = async () => {
   const user = JSON.parse(sessionStorage.getItem("user"));

@@ -14,12 +14,13 @@ import shopRoutes from "./routes/shops.routes.js";
 import bankRoutes from "./routes/bank.routes.js";
 import townhallRoutes from "./routes/townhall.routes.js";
 import gateRoutes from "./routes/gate.routes.js";
+import config from "./../config/config.js";
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
 
 app.use(cors());
-app.use(express.static(path.join(CURRENT_WORKING_DIR, "dist/app")));
+app.use(express.static(path.join(CURRENT_WORKING_DIR, (config.env === "development") ? "dist/app" : "build")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +37,11 @@ app.use("/", shopRoutes);
 app.use("/", bankRoutes);
 app.use("/", townhallRoutes);
 app.use("/", gateRoutes);
+
+// catchall
+app.get('*', (req, res) => {
+  res.sendFile(path.join(CURRENT_WORKING_DIR, 'build', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {

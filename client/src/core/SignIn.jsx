@@ -3,6 +3,7 @@ import Navigation from "./UIpartials/Navigation";
 import AuthManager from "../auth/auth-helper";
 import { useNavigate } from "react-router-dom";
 import "./css/forms.css";
+let apiURL = "" // http://localhost:3000";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/auth/signin", {
+      const response = await fetch(apiURL + "/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

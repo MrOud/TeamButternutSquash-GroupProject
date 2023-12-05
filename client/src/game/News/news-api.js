@@ -1,4 +1,4 @@
-let apiURL = "http://localhost:3000";
+let apiURL = "" // http://localhost:3000";
 const list = async () => {
   try {
     let response = await fetch(apiURL + "/api/news", {
