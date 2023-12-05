@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import AuthManager from "../../auth/auth-helper";
 import { useNavigate } from "react-router-dom";
+import "../css/navigation.css";
 
 export default function Navigation() {
   const auth = new AuthManager();
