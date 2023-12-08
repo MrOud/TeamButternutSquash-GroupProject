@@ -1,4 +1,4 @@
-let apiURL = "" // http://localhost:3000";
+let apiURL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
 
 const signin = async (user) => {
   try {

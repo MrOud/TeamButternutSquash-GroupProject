@@ -1,4 +1,4 @@
-const apiURL = "";
+const apiURL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
 
 const getBuildingList = async () => {
   try {
