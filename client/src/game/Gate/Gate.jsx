@@ -8,18 +8,20 @@ import { checkForJourney } from "../common/common-api.js";
 export default function Gate({ setCurrentPage }) {
   const [battlePhase, setBattlePhase] = useState("InTown");
 
-  useEffect(() => {}, []);
-  checkForJourney().then((data) => {
-    if (!data.result) {
-      setBattlePhase("InTown");
-    } else {
-      if (data.journey.round == 4) {
-        setBattlePhase("Fight");
+  useEffect(() => {
+    checkForJourney().then((data) => {
+      if (!data.result) {
+        setBattlePhase("InTown");
       } else {
-        setBattlePhase("Journey");
+        if (data.journey.round == 4) {
+          setBattlePhase("Fight");
+        } else {
+          setBattlePhase("Journey");
+        }
       }
-    }
-  });
+    });
+  }, []);
+
   return (
     <>
       {battlePhase == "InTown" && <InTown setCurrentPage={setCurrentPage} />}
