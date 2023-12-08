@@ -180,10 +180,7 @@ const startFight = async (req, res) => {
     resObject.monsterLvl * (Math.random() * 40 + 10) * journey.reward
   );
 
-  resObject.exp = Math.ceil(
-    (resObject.monsterLvl * Math.sqrt(Math.pow(resObject.monsterLvl, 3)) * 15) /
-      Math.ceil(Math.random() * 10)
-  );
+  resObject.exp = Math.ceil(resObject.monsterLvl * Math.random() * 100 + 50);
 
   //attach monster to the journey
   await mongoose.connection.db
@@ -238,12 +235,18 @@ const attack = async (req, res) => {
     resObject.status = "victory";
     resObject.message = `You stand victorious, earning ${monster.gold} gold and ${monster.exp} experience`;
     //add gold and exp to player
-    await mongoose.connection.db
-      .collection("players")
-      .updateOne(
-        { _id: player._id },
-        { $inc: { gold: monster.gold, "stats.experience": monster.exp } }
-      );
+    await mongoose.connection.db.collection("players").updateOne(
+      { _id: player._id },
+      {
+        $inc: { gold: monster.gold, "stats.experience": monster.exp },
+        //Heal player after fight until training fields working
+        $set: {
+          "stats.curHitpoints": player.stats.hitpoints,
+          "stats.stamina": player.stats.stamina,
+        },
+        // ** //
+      }
+    );
     //remove the journey as it's complete
     await mongoose.connection.db
       .collection("journies")
@@ -252,12 +255,19 @@ const attack = async (req, res) => {
     let goldLost = Math.floor(player.gold / 2);
     resObject.status = "lose";
     resObject.message = `The monster deals ${monsterDeals} damage. You feel oddly peaceful before the world goes black... You have lost ${goldLost} gold`;
-    await mongoose.connection.db
-      .collection("players")
-      .updateOne(
-        { _id: player._id },
-        { $inc: { gold: -goldLost }, $set: { "stats.curHitpoints": 1 } }
-      );
+    await mongoose.connection.db.collection("players").updateOne(
+      { _id: player._id },
+      {
+        $inc: { gold: -goldLost },
+        $set: {
+          "stats.curHitpoints": 1,
+          //Heal player after fight until training fields working
+          "stats.curHitpoints": player.stats.hitpoints,
+          "stats.stamina": player.stats.stamina,
+          // ** //
+        },
+      }
+    );
     //remove the journey as it's complete
     await mongoose.connection.db
       .collection("journies")
