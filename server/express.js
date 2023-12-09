@@ -14,6 +14,7 @@ import shopRoutes from "./routes/shops.routes.js";
 import bankRoutes from "./routes/bank.routes.js";
 import townhallRoutes from "./routes/townhall.routes.js";
 import gateRoutes from "./routes/gate.routes.js";
+import trainingRoutes from "./routes/training.routes.js";
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
@@ -36,6 +37,7 @@ app.use("/", shopRoutes);
 app.use("/", bankRoutes);
 app.use("/", townhallRoutes);
 app.use("/", gateRoutes);
+app.use("/" , trainingRoutes);
 
 // catchall
 app.get('*', (req, res) => {
