@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "./UIpartials/Navigation";
 import "./css/forms.css";
 import AuthManager from "../auth/auth-helper";
 import { useNavigate } from "react-router-dom";
-let apiURL = "";
+let apiURL =
+  window.location.hostname === "localhost" ? "http://localhost:3000" : "";
 
 export default function CreateChar() {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function CreateChar() {
 
   useEffect(() => {
     if (!auth.isAuthenticated()) navigate("/");
-    if (JSON.parse(sessionStorage.getItem("user")).player !== null) navigate("/play");
+    if (JSON.parse(sessionStorage.getItem("user")).player !== null)
+      navigate("/play");
   }, []);
 
   const [player, setPlayer] = useState({
@@ -21,7 +23,7 @@ export default function CreateChar() {
       strength: 0,
       dexterity: 0,
       intelligence: 0,
-    }
+    },
   });
 
   const [points, setPoints] = useState(10);
@@ -33,20 +35,30 @@ export default function CreateChar() {
         stats: {
           ...player.stats,
           strength: e.target.value,
-        }
+        },
       });
-      if (10 - e.target.value - player.stats.dexterity - player.stats.intelligence < 0) {
+      if (
+        10 -
+          e.target.value -
+          player.stats.dexterity -
+          player.stats.intelligence <
+        0
+      ) {
         setPoints(0);
         setPlayer({
           ...player,
           stats: {
             ...player.stats,
             dexterity: 10 - player.stats.strength - player.stats.intelligence,
-          }
-
-        })
+          },
+        });
       } else {
-        setPoints(10 - e.target.value - player.stats.dexterity - player.stats.intelligence);
+        setPoints(
+          10 -
+            e.target.value -
+            player.stats.dexterity -
+            player.stats.intelligence
+        );
       }
     } else if (e.target.name === "dexterity") {
       setPlayer({
@@ -54,19 +66,30 @@ export default function CreateChar() {
         stats: {
           ...player.stats,
           dexterity: e.target.value,
-        }
+        },
       });
-      if (10 - e.target.value - player.stats.strength - player.stats.intelligence < 0) {
+      if (
+        10 -
+          e.target.value -
+          player.stats.strength -
+          player.stats.intelligence <
+        0
+      ) {
         setPoints(0);
         setPlayer({
           ...player,
           stats: {
             ...player.stats,
             strength: 10 - player.stats.dexterity - player.stats.intelligence,
-          }
-        })
+          },
+        });
       } else {
-        setPoints(10 - e.target.value - player.stats.strength - player.stats.intelligence);
+        setPoints(
+          10 -
+            e.target.value -
+            player.stats.strength -
+            player.stats.intelligence
+        );
       }
     } else if (e.target.name === "intelligence") {
       setPlayer({
@@ -74,22 +97,27 @@ export default function CreateChar() {
         stats: {
           ...player.stats,
           intelligence: e.target.value,
-        }
+        },
       });
-      if (10 - e.target.value - player.stats.strength - player.stats.dexterity < 0) {
+      if (
+        10 - e.target.value - player.stats.strength - player.stats.dexterity <
+        0
+      ) {
         setPoints(0);
         setPlayer({
           ...player,
           stats: {
             ...player.stats,
             strength: 10 - player.stats.dexterity - player.stats.intelligence,
-          }
-        })
+          },
+        });
       } else {
-        setPoints(10 - e.target.value - player.stats.strength - player.stats.dexterity);
+        setPoints(
+          10 - e.target.value - player.stats.strength - player.stats.dexterity
+        );
       }
     } else {
-      setPlayer({...player, [e.target.name]: e.target.value});
+      setPlayer({ ...player, [e.target.name]: e.target.value });
     }
   }
 
@@ -101,8 +129,11 @@ export default function CreateChar() {
       player.user_id = user._id;
       const response = await fetch(apiURL + "/api/player", {
         method: "POST",
-        headers: {"Content-Type": "application/json", "Accept": "application/json"},
-        body: JSON.stringify(player)
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(player),
       });
 
       const data = await response.json();
@@ -121,7 +152,7 @@ export default function CreateChar() {
 
   return (
     <div>
-      <Navigation/>
+      <Navigation />
       <div className="authForm">
         <form onSubmit={handleSubmit}>
           <h1>Character Creation</h1>
@@ -178,7 +209,9 @@ export default function CreateChar() {
               />
             </div>
           </div>
-          <button type="submit" disabled={points !== 0 || player.name === ""}>Create Character</button>
+          <button type="submit" disabled={points !== 0 || player.name === ""}>
+            Create Character
+          </button>
         </form>
       </div>
     </div>
