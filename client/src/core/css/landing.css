@@ -1,0 +1,93 @@
+.body {
+  font-family: "DM Serif Display", serif;
+}
+
+.main {
+  font-family: "DM Serif Display", serif;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 5% 10% 30% 5% 5% 30% 10% 5%;
+}
+
+.titleBar {
+  grid-column-start: 1;
+  grid-column-end: 8;
+  background-color: rgba(250, 235, 215, 0.6);
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+}
+
+.titleBar > h1 {
+  font-size: 4em;
+  margin-bottom: 1%;
+  margin-top: 1%;
+}
+
+.titleBar > h2 {
+  font-size: 2em;
+  margin-top: 1%;
+}
+
+.contentPara {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  background-color: rgba(250, 235, 215, 0.6);
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: large;
+}
+
+.teamCard {
+  grid-column-start: 6;
+  grid-column-end: 8;
+  background-color: rgba(250, 235, 215, 0.6);
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.teamCard > h2 {
+  margin-bottom: 0;
+}
+
+.teamCard > h3 {
+  margin-top: 0;
+}
+
+.teamCard > ul > li {
+  list-style-type: none;
+}
+
+.backgroundImage {
+  background-color: rgb(146, 184, 109);
+  z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  object-fit: ;
+}
+
+/* .backgroundImage > img {
+  height: 100%;
+  width: 100%;
+} */
+
+.navigationBar {
+  grid-column-start: 1;
+  grid-column-end: 8;
+}
+
+@media only screen and (max-width: 800px) {
+  .contentPara {
+    grid-column-start: 1;
+    grid-column-end: 8;
+  }
+
+  .teamCard {
+    grid-column-start: 1;
+    grid-column-end: 8;
+  }
+}

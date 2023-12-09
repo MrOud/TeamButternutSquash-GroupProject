@@ -1,13 +1,30 @@
+import { useState, useEffect } from "react";
 import Navigation from "./UIpartials/Navigation";
+import "./css/landing.css";
 
 export default function Landing() {
+  const backgroundImages = [
+    "/exploration/environments/hills.webp",
+    "/exploration/environments/forest_2.webp",
+    "/exploration/environments/mountains.webp",
+    "/exploration/environments/desert_2.webp",
+    "/exploration/environments/dungeon_entrance.webp",
+  ];
+
+  const [bkgndSelected, setBkgndSelected] = useState(backgroundImages[0]);
+  useEffect(() => {
+    let bkgndRandom = Math.floor(Math.random() * backgroundImages.length);
+    setBkgndSelected(backgroundImages[bkgndRandom]);
+  }, []);
   return (
-    <div>
-      <Navigation />
+    <>
       <div className="main">
-        <h1>L.O.R.E</h1>
-        <h2>Legends Of Roaming & Exploration</h2>
-        <p>
+        <Navigation />
+        <div className="titleBar">
+          <h1>L.O.R.E</h1>
+          <h2>Legends Of Roaming & Exploration</h2>
+        </div>
+        <p className="contentPara">
           Welcome to the Legends Of Roaming & Exploration (LORE). LORE is
           inspired by the BBS (Bulletin Board Systems) Door Games from a time
           before the internet was ubiquitous. Often BBSes were run by
@@ -21,17 +38,22 @@ export default function Landing() {
           of the individual player while being a part of a community
         </p>
 
-        <h2>Team Butternut Squash</h2>
-        <h3>COMP229 - Sec. 401</h3>
-        <ul>
-          <li>Kris Oud</li>
-          <li>Chris Busse</li>
-          <li>Anna Lomadze</li>
-          <li>Eman Alkhatib</li>
-          <li>Benjamin Nge</li>
-          <li>Barath Srinivasan</li>
-        </ul>
+        <div className="teamCard">
+          <h2>Team Butternut Squash</h2>
+          <h3>COMP229 - Sec. 401</h3>
+          <ul>
+            <li>Kris Oud</li>
+            <li>Chris Busse</li>
+            <li>Anna Lomadze</li>
+            <li>Eman Alkhatib</li>
+            <li>Benjamin Nge</li>
+            <li>Barath Srinivasan</li>
+          </ul>
+        </div>
       </div>
-    </div>
+      <div className="backgroundImage">
+        <img src={bkgndSelected}></img>
+      </div>
+    </>
   );
 }
