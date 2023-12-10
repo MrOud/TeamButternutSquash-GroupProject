@@ -2,9 +2,7 @@ import "../common/common.css";
 import { useEffect, useState } from "react";
 import Navigation from "../../core/UIpartials/Navigation";
 import { getProfile } from "../common/common-api";
-import { levelUp } from "./training-api";
-
-
+import { levelUp, buyStat } from "./training-api";
 
 
 
@@ -70,14 +68,35 @@ useEffect(() => {
           
         })
       }
-      }> LEVEL UP
-      </button>
+      }> LEVEL UP </button>
 
       <p>
         Gold: {goldInHand}
       </p>
     
       </div>
+
+      <div className="statbox">
+      <div className="statrow">
+      <p>Strength: {str}</p>
+      <button onClick={() => {buyStat('str').then((data) => {console.log(data)})}}>Buy Strength </button>
+      <p>Cost of upgrade</p>
+      </div>
+      <div className="statrow">
+      <p>Dexterity: {dex}</p>
+      <button onClick={() => {buyStat('dex').then((data) => {console.log(data)})}}>Buy Dexterity </button>
+      <p>Cost of upgrade</p>
+      </div>
+      <div className="statrow">
+      <p>Inteligence: {int}</p>
+      <button onClick={() => {buyStat('int').then((data) => {console.log(data)})}}> Buy Inteligence</button>
+      <p>Cost of upgrade {playerLevel * int * 50} Exp & {playerLevel * int * 500} gold</p>
+
+      </div>
+      
+      </div>
+
+
       <p
         className="gameLink"
         onClick={() => {

@@ -9,4 +9,7 @@ router
 .route("/api/training/levelup")
 .post(authCtrl.confirmAuthorization, trainingCtrl.levelUp)
 
+router
+.route("/api/training/buyStat")
+.post(authCtrl.confirmAuthorization, trainingCtrl.buyStat)
 export default router;

@@ -1,3 +1,4 @@
+import { response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
@@ -33,5 +34,21 @@ const levelUp = async (req, res) => {
 }
 
 
+    const buyStat = async (req, res) => {
+        const ObjectId = mongoose.Types.ObjectId;
+      const user_id = new ObjectId(req.body.user);
+    
+      //Get player data
+    
+      const player = await mongoose.connection.db
+        .collection("players")
+        .findOne({ user_id: user_id });
 
-export default { levelUp}
+        const statWanted = req.body.stat
+        return res.json({statWanted: statWanted})
+    }
+
+
+
+
+export default { levelUp, buyStat}
