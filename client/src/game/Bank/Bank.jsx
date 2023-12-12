@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "../common/common.css";
 import { getBalance, makeDeposit, makeWithdrawl } from "./bank-api";
-import "../Bank/Bank.css";
+import "./Bank.css";
 
 export default function Bank({ setCurrentPage }) {
   const [balance, setBalance] = useState(0);
@@ -25,8 +25,8 @@ export default function Bank({ setCurrentPage }) {
   return (
     <>
       <div className="bankBackground">
-      <div className="textCircle">
-         <h2>The Bank</h2>
+        <div className="textCircle">
+          <h2>The Bank</h2>
           <p>{buildingDesc}</p>
           <p>{shopMessage}</p>
           <p>You have:</p>
@@ -76,11 +76,10 @@ export default function Bank({ setCurrentPage }) {
             Withdraw
           </button>
         </div>
-
         <p className="backToTownLink" onClick={() => setCurrentPage("Town")}>
-        Back to Town
-    </p>
-</div>     
+          Back to Town
+        </p>
+      </div>
     </>
   );
 }
