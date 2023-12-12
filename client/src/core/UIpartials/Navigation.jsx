@@ -15,24 +15,42 @@ export default function Navigation() {
 
   return (
     <div className="navigationBar">
-      <Link to="/">Home</Link>
+      <Link to="/">
+        <div className="logo">
+          <img src="/tbns.svg" alt="logo" height="80px"/>
+          <h1>L.O.R.E.</h1>
+        </div>
+      </Link>
 
-      {!auth.isAuthenticated() && (
-        <>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/signin">Sign In</Link>
-        </>
-      )}
+      <div className="mainNav">
+        <Link to="/">Home</Link>
 
-      {auth.isAuthenticated() && (
-        <>
-          <Link to="/play">Play</Link>
-          <Link to="/profile"> {user.name}&lsquo;s Profile</Link>
-          <Link to={"/"} onClick={clickSignout}>
-            Sign Out
-          </Link>
-        </>
-      )}
+        {auth.isAuthenticated() && (
+          <>
+            <Link to="/play">Play</Link>
+            <Link to="/profile"> {JSON.parse(sessionStorage.getItem("user")).player.name}</Link>
+          </>
+        )}
+      </div>
+
+      <div className="authNav">
+        {!auth.isAuthenticated() && (
+          <>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/signin">Sign In</Link>
+          </>
+        )}
+
+        {auth.isAuthenticated() && (
+          <>
+            <p>Welcome, {user.name}!</p>
+            <Link to="/" onClick={clickSignout}>
+              Sign Out
+            </Link>
+          </>
+        )}
+      </div>
+
     </div>
   );
 

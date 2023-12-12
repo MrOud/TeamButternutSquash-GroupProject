@@ -1,5 +1,53 @@
 .navigationBar {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #6c814c;
+  font-family: "DM Serif Display", serif;
+  font-size: medium;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.logo img {
+  margin-right: 20px;
+}
+
+.navigationBar h1 {
+  font-size: 2.5rem;
+  color: #111;
+  margin: 0;
+  padding: 0;
+}
+
+.authNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authNav a, .authNav p {
+  margin-right: 25px;
+  color: #111;
+}
+
+.authNav p {
+  color: #284228;
+}
+
+.mainNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainNav a {
+  margin-right: 25px;
+  color: #111;
 }
