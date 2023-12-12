@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { list, buyWeapon } from "./weapons-api.js";
 import "../common/common.css";
+import "./WeaponSmith.css";
 
+// eslint-disable-next-line react/prop-types
 export default function WeaponSmith({ setCurrentPage }) {
   const [weaponList, setWeaponList] = useState([]);
   const [shopMessage, setShopMessage] = useState("Welcome to my shop");
@@ -32,19 +34,20 @@ export default function WeaponSmith({ setCurrentPage }) {
   }
 
   return (
-    <>
-      <h2>The Weapon Smith</h2>
-      <p>{shopMessage}</p>
-      <table>
-        <thead>
+    <div className="weaponSmith">
+      <div className="weaponSmithMain">
+        <h2>The Weapon Smith</h2>
+        <p>{shopMessage}</p>
+        <table>
+          <thead>
           <tr>
             <td>Name:</td>
             <td>Price:</td>
             <td>Attack Increase:</td>
             <td></td>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {weaponList.map((wep, i) => {
             return (
               <tr key={i}>
@@ -52,10 +55,10 @@ export default function WeaponSmith({ setCurrentPage }) {
                 <td key={"b" + i}>{weaponList[i].price}</td>
                 <td key={"c" + i}>{weaponList[i].dmgMod}</td>
                 <td key={"d" + i}>
-                  <p
-                    onClick={() => {
-                      makePurchase(weaponList[i]._id);
-                    }}
+                  <p className={"gameLink"}
+                     onClick={() => {
+                       makePurchase(weaponList[i]._id);
+                     }}
                   >
                     Buy!
                   </p>
@@ -63,16 +66,18 @@ export default function WeaponSmith({ setCurrentPage }) {
               </tr>
             );
           })}
-        </tbody>
-      </table>
-      <p
-        className="gameLink"
-        onClick={() => {
-          setCurrentPage("Town");
-        }}
-      >
-        Back to Town
-      </p>
-    </>
+          </tbody>
+        </table>
+        <p
+          className="gameLink"
+          onClick={() => {
+            setCurrentPage("Town");
+          }}
+        >
+          Back to Town
+        </p>
+      </div>
+      <img src="/town/weapon_smith.webp" alt="Weapon shop"/>
+    </div>
   );
 }
