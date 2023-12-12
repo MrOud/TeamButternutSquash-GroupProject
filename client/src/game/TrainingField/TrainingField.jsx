@@ -43,6 +43,26 @@ useEffect(() => {
     setCurHp(data.stats.curHitpoints);
   }) 
 },[])
+  async function updateScreen (){
+    getProfile().then((data) => {
+      setPlayerName(data.name);
+      setPlayerLevel(data.stats.level);
+      setPlayerExp(data.stats.experience)
+      setPlayerNextLevel(
+       Math.ceil(
+           5000 * (data.stats.level * Math.sqrt(Math.pow(data.stats.level, 3)))
+        )
+      );
+      setGoldInHand(data.gold);
+      setStr(data.stats.strength);
+      setDex(data.stats.dexterity);
+      setInt(data.stats.intelligence);
+      setStam(data.stats.stamina);
+      setCurStam(data.stats.curStamina);
+      setHp(data.stats.hitpoints);
+      setCurHp(data.stats.curHitpoints);
+  })}
+
 
   return (
     <>
@@ -79,17 +99,17 @@ useEffect(() => {
       <div className="statbox">
       <div className="statrow">
       <p>Strength: {str}</p>
-      <button onClick={() => {buyStat('str').then((data) => {console.log(data)})}}>Buy Strength </button>
-      <p>Cost of upgrade</p>
+      <button onClick={() => {buyStat('str').then((data) => {updateScreen()})}}>Buy Strength </button>
+      <p>Cost of upgrade  {playerLevel * str * 50} Exp & {playerLevel * str * 500} gold</p>
       </div>
       <div className="statrow">
       <p>Dexterity: {dex}</p>
-      <button onClick={() => {buyStat('dex').then((data) => {console.log(data)})}}>Buy Dexterity </button>
-      <p>Cost of upgrade</p>
+      <button onClick={() => {buyStat('dex').then((data) => {updateScreen()})}}>Buy Dexterity </button>
+      <p>Cost of upgrade {playerLevel * dex * 50} Exp & {playerLevel * dex * 500} gold</p>
       </div>
       <div className="statrow">
-      <p>Inteligence: {int}</p>
-      <button onClick={() => {buyStat('int').then((data) => {console.log(data)})}}> Buy Inteligence</button>
+      <p>Intelligence: {int}</p>
+      <button onClick={() => {buyStat('int').then((data) => {updateScreen()})}}> Buy Inteligence</button>
       <p>Cost of upgrade {playerLevel * int * 50} Exp & {playerLevel * int * 500} gold</p>
 
       </div>
