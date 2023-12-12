@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "../common/common.css";
 import { getBalance, makeDeposit, makeWithdrawl } from "./bank-api";
+import "../Bank/Bank.css";
 
 export default function Bank({ setCurrentPage }) {
   const [balance, setBalance] = useState(0);
@@ -23,56 +24,63 @@ export default function Bank({ setCurrentPage }) {
 
   return (
     <>
-      <h2>The Bank</h2>
-      <p>{buildingDesc}</p>
-      <p>{shopMessage}</p>
-      <p>You have: </p>
-      <ul>
-        <li>{goldOnHand} in hand</li>
-        <li>{balance} in your account</li>
-      </ul>
+      <div className="bankBackground">
+      <div className="textCircle">
+         <h2>The Bank</h2>
+          <p>{buildingDesc}</p>
+          <p>{shopMessage}</p>
+          <p>You have:</p>
+          <ul>
+            <li>{goldOnHand} in hand</li>
+            <li>{balance} in your account</li>
+          </ul>
 
-      <input type="text" ref={transactInput} defaultValue="0" />
-      <button
-        onClick={() => {
-          if (transactInput.current.value > 0)
-            makeDeposit(transactInput.current.value).then((data) => {
-              setBalance(data.goldAccount);
-              setGoldOnHand(data.goldOnHand);
-              setShopMessage(data.shopMessage);
-            });
-          if (transactInput.current.value < 0) {
-            setShopMessage("The teller seems quite unamused");
-          }
-          transactInput.current.value = 0;
-        }}
-      >
-        Deposit
-      </button>
-      <button
-        onClick={() => {
-          if (transactInput.current.value > 0)
-            makeWithdrawl(transactInput.current.value).then((data) => {
-              setBalance(data.goldAccount);
-              setGoldOnHand(data.goldOnHand);
-              setShopMessage(data.shopMessage);
-            });
-          if (transactInput.current.value < 0) {
-            setShopMessage("The teller seems quite unamused");
-          }
-          transactInput.current.value = 0;
-        }}
-      >
-        Withdrawl
-      </button>
-      <p
-        className="gameLink"
-        onClick={() => {
-          setCurrentPage("Town");
-        }}
-      >
+          <input
+            className="textInput"
+            type="text"
+            ref={transactInput}
+            defaultValue="0"
+          />
+          <button
+            className="button"
+            onClick={() => {
+              if (transactInput.current.value > 0)
+                makeDeposit(transactInput.current.value).then((data) => {
+                  setBalance(data.goldAccount);
+                  setGoldOnHand(data.goldOnHand);
+                  setShopMessage(data.shopMessage);
+                });
+              if (transactInput.current.value < 0) {
+                setShopMessage("The teller seems quite unamused");
+              }
+              transactInput.current.value = 0;
+            }}
+          >
+            Deposit
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              if (transactInput.current.value > 0)
+                makeWithdrawl(transactInput.current.value).then((data) => {
+                  setBalance(data.goldAccount);
+                  setGoldOnHand(data.goldOnHand);
+                  setShopMessage(data.shopMessage);
+                });
+              if (transactInput.current.value < 0) {
+                setShopMessage("The teller seems quite unamused");
+              }
+              transactInput.current.value = 0;
+            }}
+          >
+            Withdraw
+          </button>
+        </div>
+
+        <p className="backToTownLink" onClick={() => setCurrentPage("Town")}>
         Back to Town
-      </p>
+    </p>
+</div>     
     </>
   );
 }
