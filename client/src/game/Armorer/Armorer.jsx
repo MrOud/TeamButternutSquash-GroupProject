@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { list, buyArmor } from "./armorer-api.js";
 import "../common/common.css";
+import "./Armorer.css";
 
 export default function Armorer({ setCurrentPage }) {
   const [armorList, setArmorList] = useState([]);
@@ -32,47 +33,50 @@ export default function Armorer({ setCurrentPage }) {
   }
 
   return (
-    <>
-      <h2>The Armored Armadillo</h2>
-      <p>{shopMessage}</p>
-      <table>
-        <thead>
-          <tr>
-            <td>Name:</td>
-            <td>Price:</td>
-            <td>Defence Increase:</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          {armorList.map((arm, i) => {
-            return (
-              <tr key={i}>
-                <td key={"a" + i}>{armorList[i].name}</td>
-                <td key={"b" + i}>{armorList[i].price}</td>
-                <td key={"c" + i}>{armorList[i].dmgMod}</td>
-                <td key={"d" + i}>
-                  <p
-                    onClick={() => {
-                      makePurchase(armorList[i]._id);
-                    }}
-                  >
-                    Buy!
-                  </p>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <p
-        className="gameLink"
-        onClick={() => {
-          setCurrentPage("Town");
-        }}
-      >
-        Back to Town
-      </p>
-    </>
+    <div className="armorer">
+      <div>
+        <h2>The Armored Armadillo</h2>
+        <p>{shopMessage}</p>
+        <table>
+          <thead>
+            <tr>
+              <td>Name:</td>
+              <td>Price:</td>
+              <td>Defence Increase:</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {armorList.map((arm, i) => {
+              return (
+                <tr key={i}>
+                  <td key={"a" + i}>{armorList[i].name}</td>
+                  <td key={"b" + i}>{armorList[i].price}</td>
+                  <td key={"c" + i}>{armorList[i].dmgMod}</td>
+                  <td key={"d" + i}>
+                    <p className="gameLink"
+                      onClick={() => {
+                        makePurchase(armorList[i]._id);
+                      }}
+                    >
+                      Buy!
+                    </p>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <p
+          className="gameLink"
+          onClick={() => {
+            setCurrentPage("Town");
+          }}
+        >
+          Back to Town
+        </p>
+      </div>
+      <img src="/town/armorer.webp" alt="armorer"/>
+    </div>
   );
 }

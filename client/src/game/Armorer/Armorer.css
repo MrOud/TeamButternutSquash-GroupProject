@@ -1,0 +1,9 @@
+.armorer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.armorer img {
+  width: 80vh;
+}
