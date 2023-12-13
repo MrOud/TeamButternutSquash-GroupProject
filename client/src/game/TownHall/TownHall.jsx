@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "../common/common.css";
 import { getPlayerGold } from "../common/common-api.js";
 import { getBuildingList, makeDonation } from "./townhall-api.js";
+import "./TownHall.css";
 
 export default function TownHall({ setCurrentPage }) {
   const [wepsmithLevel, setWepsmithLevel] = useState(0);
@@ -102,63 +103,66 @@ export default function TownHall({ setCurrentPage }) {
   }, []);
 
   return (
-    <>
-      <h2>Town Hall</h2>
-      <p>
-        The Town Hall bustles with activity as city officials work away
-        diligently to improve the city. A record keeper sits at the desk waiting
-        to assist the public
-      </p>
-      <p>{shopMessage}</p>
-      <p>
-        Weapon Smith Level: {wepsmithLevel} Donations: {wepsmithDonation} /{" "}
-        {wepsmithNextLevel}
-      </p>
-      <p>
-        Armorer Level: {armorerLevel} Donations: {armorerDonation} /{" "}
-        {armorerNextLevel}
-      </p>
-      <p>
-        Training Fileds Level: {trainingLevel} Donations: {trainingDonation} /{" "}
-        {trainingNextLevel}
-      </p>
-      <p>Gold in Hand: {goldInHand}</p>
+    <div className="townHall">
+      <div className="text">
+        <h2>Town Hall</h2>
+        <p>
+          The Town Hall bustles with activity as city officials work away
+          diligently to improve the city. A record keeper sits at the desk waiting
+          to assist the public
+        </p>
+        <p>{shopMessage}</p>
+        <p>
+          Weapon Smith Level: {wepsmithLevel} Donations: {wepsmithDonation} /{" "}
+          {wepsmithNextLevel}
+        </p>
+        <p>
+          Armorer Level: {armorerLevel} Donations: {armorerDonation} /{" "}
+          {armorerNextLevel}
+        </p>
+        <p>
+          Training Fileds Level: {trainingLevel} Donations: {trainingDonation} /{" "}
+          {trainingNextLevel}
+        </p>
+        <p>Gold in Hand: {goldInHand}</p>
 
-      <input type="text" ref={donationAmount} defaultValue={0}></input>
-      <select ref={buildingSelect}>
-        <option value={"weaponShop"}>The Weapon Smith&lsquo;s</option>
-        <option value={"armorShop"}>The Armor&lsquo;s</option>
-        <option value={"training"}>The Training Fields</option>
-      </select>
-      <button
-        onClick={() => {
-          if (validDonation()) {
-            makeDonation(
-              buildingSelect.current.value,
-              donationAmount.current.value
-            ).then((data) => {
-              getBuildingList().then((data) => {
-                updateBuildings(data);
+        <input type="text" ref={donationAmount} defaultValue={0}></input>
+        <select ref={buildingSelect}>
+          <option value={"weaponShop"}>The Weapon Smith&lsquo;s</option>
+          <option value={"armorShop"}>The Armor&lsquo;s</option>
+          <option value={"training"}>The Training Fields</option>
+        </select>
+        <button
+          onClick={() => {
+            if (validDonation()) {
+              makeDonation(
+                buildingSelect.current.value,
+                donationAmount.current.value
+              ).then((data) => {
+                getBuildingList().then((data) => {
+                  updateBuildings(data);
+                });
+                setGoldInHand(data.gold);
+                setShopMessage(
+                  'The record keeper smiles at you, "Thank you for your donation"'
+                );
               });
-              setGoldInHand(data.gold);
-              setShopMessage(
-                'The record keeper smiles at you, "Thank you for your donation"'
-              );
-            });
-          }
-          donationAmount.current.value = 0;
-        }}
-      >
-        Make Donation
-      </button>
-      <p
-        className="gameLink"
-        onClick={() => {
-          setCurrentPage("Town");
-        }}
-      >
-        Back to Town
-      </p>
-    </>
+            }
+            donationAmount.current.value = 0;
+          }}
+        >
+          Make Donation
+        </button>
+        <p
+          className="gameLink"
+          onClick={() => {
+            setCurrentPage("Town");
+          }}
+        >
+          Back to Town
+        </p>
+      </div>
+      <img src="/town/town_hall.webp" alt="town hall" />
+    </div>
   );
 }

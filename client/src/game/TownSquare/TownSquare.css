@@ -1,0 +1,16 @@
+.townSquare {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.townSquare img {
+  width: 80vh;
+}
+
+.townSquare .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

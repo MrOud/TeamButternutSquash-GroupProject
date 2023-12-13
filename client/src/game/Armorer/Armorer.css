@@ -1,9 +1,9 @@
-.weaponSmith {
+.armorer {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.weaponSmith img {
+.armorer img {
   width: 80vh;
 }

@@ -1,0 +1,16 @@
+.gate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gate img {
+  width: 80vh;
+}
+
+.gate .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { checkForJourney, getProfile } from "../common/common-api";
 import { attack, abandonFight } from "./gate-api";
 
+// eslint-disable-next-line react/prop-types
 export default function Fight({ setCurrentPage }) {
   const [monLevel, setMonLevel] = useState(0);
   const [monHp, setMonHp] = useState(0);
