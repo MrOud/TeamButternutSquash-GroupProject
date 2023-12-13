@@ -28,7 +28,9 @@ export default function Navigation() {
         {auth.isAuthenticated() && (
           <>
             <Link to="/play">Play</Link>
-            <Link to="/profile"> {JSON.parse(sessionStorage.getItem("user")).player.name}</Link>
+            <Link to="/profile"> {
+              JSON.parse(sessionStorage.getItem("user")).player ? JSON.parse(sessionStorage.getItem("user")).player.name : "Unknown Character"
+            }</Link>
           </>
         )}
       </div>
