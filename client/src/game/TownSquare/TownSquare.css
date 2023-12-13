@@ -1,14 +1,14 @@
-.gate {
+.townSquare {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.gate img {
+.townSquare img {
   width: 80vh;
 }
 
-.gate .text {
+.townSquare .text {
   display: flex;
   flex-direction: column;
   align-items: center;
