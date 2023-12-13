@@ -1,10 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const PlayerSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: 'Name is required',
+    required: "Name is required",
+    unique: true,
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: "Character must be linked to a player",
+    unique: true,
   },
   created: {
     type: Date,
@@ -29,11 +36,11 @@ const PlayerSchema = new mongoose.Schema({
     },
     hitpoints: {
       type: Number,
-      default: 100, 
+      default: 100,
     },
     stamina: {
       type: Number,
-      default: 100, 
+      default: 100,
     },
     skillPoints: {
       type: Number,
@@ -45,7 +52,7 @@ const PlayerSchema = new mongoose.Schema({
     },
     baseArmor: {
       type: Number,
-      default: 5, 
+      default: 5,
     },
     luck: {
       type: Number,
@@ -55,7 +62,23 @@ const PlayerSchema = new mongoose.Schema({
       type: Number,
       default: 0,
     },
+    level: {
+      type: Number,
+      default: 1,
+    },
+  },
+  weapon: {
+    type: Number,
+    default: 1000,
+  },
+  armor: {
+    type: Number,
+    default: 1000,
+  },
+  gold: {
+    type: Number,
+    default: 0,
   },
 });
 
-export default mongoose.model('Player', PlayerSchema);
+export default mongoose.model("Player", PlayerSchema);

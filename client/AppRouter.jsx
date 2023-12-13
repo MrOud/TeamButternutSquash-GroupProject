@@ -4,6 +4,7 @@ import SignUp from "./src/core/SignUp.jsx";
 import SignIn from "./src/core/SignIn.jsx";
 import Profile from "./src/core/Profile.jsx";
 import GameExperience from "./src/core/GameExperience.jsx";
+import CreateChar from "./src/core/CreateChar.jsx";
 
 const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/play" element={<GameExperience />} />
+        <Route exact path="/create" element={<CreateChar />} />
       </Routes>
     </>
   );

@@ -1,0 +1,40 @@
+.stat {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.stat img {
+  margin-right: 10px;
+}
+
+.statsPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.title {
+  grid-column: 2;
+}
+
+.primaryStats {
+  grid-column: 1;
+  background-color: #e7e7e7;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.baseStats {
+  grid-column: 2;
+  background-color: #e7e7e7;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.secondaryStats {
+  grid-column: 3;
+  background-color: #e7e7e7;
+  padding: 10px;
+  border-radius: 10px;
+}
