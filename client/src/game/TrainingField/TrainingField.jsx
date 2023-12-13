@@ -1,8 +1,8 @@
 import "../common/common.css";
 import { useEffect, useState } from "react";
-import Navigation from "../../core/UIpartials/Navigation";
 import { getProfile } from "../common/common-api";
 import { levelUp, buyStat } from "./training-api";
+import "./TrainingField.css";
 
 
 
@@ -65,7 +65,8 @@ useEffect(() => {
 
 
   return (
-    <>
+    <div className="trainingField">
+      <div className="text">
       <h2>The Training Fields</h2>
       <p>Welcome to the training field, {playerName}. This is your chance to gain your experience and improve your skills, Gear up level up and let your training begin here -Welcome to a world where the pursuit of excellence is not just a goal but a way of gaming life. May your skills be sharp and victories legendary!</p>
       <p>{shopMessage}</p>
@@ -84,8 +85,6 @@ useEffect(() => {
           } else if (data.status == "Failure") {
             setShopMessage ("You are not ready yet!")
           }
-
-          
         })
       }
       }> LEVEL UP </button>
@@ -125,7 +124,9 @@ useEffect(() => {
       >
         Back to Town
       </p>
-    </>
+        </div>
+      <img src="/town/training_field.webp" alt="Training Field"/>
+    </div>
 
       
 
