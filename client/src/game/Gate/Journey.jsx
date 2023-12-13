@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { getNextPhase, startFight, abandonFight } from "./gate-api.js";
 import { checkForJourney } from "../common/common-api.js";
+import "./Gate.css";
+
+// eslint-disable-next-line react/prop-types
 export default function Journey({ setCurrentPage }) {
   const [curRound, setCurRound] = useState(0);
   const [curHard, setCurHard] = useState(0);
@@ -20,8 +23,8 @@ export default function Journey({ setCurrentPage }) {
   }, []);
 
   return (
-    <>
-      <div>
+    <div className="gate">
+      <div className="text">
         <h2>Current Journey</h2>
         <p>Re-rolls remaining: {3 - curRound}</p>
         <p>Hardness: {(curHard * 100).toFixed(2)}%</p>
@@ -64,6 +67,7 @@ export default function Journey({ setCurrentPage }) {
           Return to Town
         </button>
       </div>
-    </>
+      <img src="/exploration/environments/forest.webp" alt="journey"/>
+    </div>
   );
 }

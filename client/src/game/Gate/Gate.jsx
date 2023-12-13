@@ -5,6 +5,7 @@ import Journey from "./Journey";
 import Fight from "./Fight.jsx";
 import { checkForJourney } from "../common/common-api.js";
 
+// eslint-disable-next-line react/prop-types
 export default function Gate({ setCurrentPage }) {
   const [battlePhase, setBattlePhase] = useState("InTown");
 
