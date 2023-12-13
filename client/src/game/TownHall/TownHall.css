@@ -1,0 +1,16 @@
+.townHall {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.townHall img {
+  width: 80vh;
+}
+
+.townHall .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
