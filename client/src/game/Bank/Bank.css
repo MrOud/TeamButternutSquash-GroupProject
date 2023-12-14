@@ -8,7 +8,7 @@ body {
 }
 
 .bankBackground {
-  background-image: url("/public/town/bank.jpg");
+  background-image: url("/town/bank.jpg");
   background-size: 100%;
   height: 90dvh;
   font-family: "Roboto", sans-serif;

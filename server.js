@@ -6,18 +6,18 @@ import path from "path";
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(config.mongoUri, {
+  .connect(process.env.MONGODB_URI, {
     dbName: "lore",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log(`Connected to database: ${config.mongoUri}`);
+    console.log(`Connected to database`);
   });
 
 mongoose.connection.on("error", (error) => {
   console.log(error);
-  throw new Error(`unable to connect to database: ${config.mongoUri}`);
+  throw new Error(`Unable to connect to database!`);
 });
 
 app.get("/", (req, res) => {
