@@ -12,12 +12,12 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log(`Connected to database: ${process.env.MONGODB_URI}`);
+    console.log(`Connected to database`);
   });
 
 mongoose.connection.on("error", (error) => {
   console.log(error);
-  throw new Error(`unable to connect to database!: ${process.env.MONGODB_URI}`);
+  throw new Error(`Unable to connect to database!`);
 });
 
 app.get("/", (req, res) => {
